@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        ANSIBLE_PLAYBOOK_PATH = "/home/amen/Ansible-K8s/Kubernetes/tasks/prepare_kubernetes.yml"
-        INVENTORY_PATH = "/home/amen/Ansible-K8s/Kubernetes/inventory.txt"
+        ANSIBLE_PLAYBOOK_PATH = "/home/amen/PFE/Kubernetes/tasks/prepare_kubernetes.yml"
+        INVENTORY_PATH = "/home/amen/PFE/Kubernetes/inventory.txt"
         SSH_KEY = "/var/lib/jenkins/.ssh/id_rsa" 
     }
     stages {
@@ -12,7 +12,7 @@ pipeline {
                 echo 'Cleaning Workspace'
                 echo 'Pulling ... '
                 git branch: 'main',
-                url: 'https://github.com/amen123456/Ansible-K8s.git'
+                url: 'https://github.com/amen123456/PFE.git'
             }
         }
         stage('Install OpenJDK 11') {
