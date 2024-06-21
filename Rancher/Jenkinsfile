@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Pulling ... '
                 git branch: 'main',
-                url: 'https://github.com/amen123456/Ansible-K8s.git'
+                url: 'https://github.com/amen123456/PFE.git'
             }
         }
         stage('Test') {
@@ -20,8 +20,8 @@ pipeline {
                     credentialsId: 'roottt',
                     disableHostKeyChecking: true,
                     installation: 'Ansible',
-                    inventory: '/home/amen/Ansible-K8s/Kubernetes/inventory.txt',
-                    playbook: '/home/amen/Ansible-K8s/Kubernetes/Install_Rancher.yml',
+                    inventory: '/home/amen/PFE/Kubernetes/inventory.txt',
+                    playbook: '/home/amen/PFE/Rancher/Install_Rancher.yml',
                     vaultTmpPath: ''
                 )
             }
