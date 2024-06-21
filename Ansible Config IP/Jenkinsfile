@@ -19,10 +19,10 @@ pipeline {
                     credentialsId: 'ssh-key', // Changed to correct Credentials ID
                     disableHostKeyChecking: true,
                     installation: 'Ansible',
-                    inventory: '/home/amen/Ansible-K8s/Kubernetes/hosts.txt',
-                    playbook: '/home/amen/Ansible-K8s/Kubernetes/config.yml',
-                    extraVars: [ // Optional: Add extra vars if needed
-                        'ansible_user': 'root' // Specify user if different from what's in Jenkins credentials
+                    inventory: '/home/amen/PFE/Ansible Config IP/hosts.txt',
+                    playbook: '/home/amen/PFE/Ansible Config IP/config.yml',
+                    extraVars: [
+                        'ansible_user': 'root'
                     ]
                 )
             }
