@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Checkout') {
+            steps {
+                echo 'Pulling ... '
+                git branch: 'main',
+                url: 'https://github.com/amen123456/Ansible-K8s.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'amen'
+            }
+        }
+
+     
+      
+   stage('Install Wazuh') {
+     steps {
+                ansiblePlaybook(
+                    credentialsId: 'ssh-key', // Changed to correct Credentials ID
+                    disableHostKeyChecking: true,
+                    installation: 'Ansible',
+                    inventory: '/home/amen/Ansible-K8s/Kubernetes/inventory.txt',
+                    playbook: '/home/amen/Ansible-K8s/Kubernetes/Install_wazuh.yml',
+                    extraVars: [ // Optional: Add extra vars if needed
+                        'ansible_user': 'root' // Specify user if different from what's in Jenkins credentials
+                    ]
+                )
+            }
+}
+}
+}
