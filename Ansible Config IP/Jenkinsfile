@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Checkout') {
+            steps {
+                echo 'Pulling ... '
+                git branch: 'main',
+                    url: 'https://github.com/amen123456/Ansible-K8s.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'amen'
+            }
+        }
+        stage('Configure VM Network Settings and Reboot') {
+            steps {
+                ansiblePlaybook(
+                    credentialsId: 'ssh-key', // Changed to correct Credentials ID
+                    disableHostKeyChecking: true,
+                    installation: 'Ansible',
+                    inventory: '/home/amen/Ansible-K8s/Kubernetes/hosts.txt',
+                    playbook: '/home/amen/Ansible-K8s/Kubernetes/config.yml',
+                    extraVars: [ // Optional: Add extra vars if needed
+                        'ansible_user': 'root' // Specify user if different from what's in Jenkins credentials
+                    ]
+                )
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Network deployment successful!'
+        }
+        failure {
+            echo 'Network deployment failed.'
+        }
+    }
+}
