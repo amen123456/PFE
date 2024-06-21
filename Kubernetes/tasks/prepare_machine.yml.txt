@@ -1,0 +1,56 @@
+---
+- name: Start Prepare Installation For Kubernetes Cluster
+  hosts: all
+  vars_prompt:
+    # - name: number_worker
+    #   prompt: "How Many Do You Want Worker Node:"
+    #   private: no
+    # - name: enable_docker_test_repo
+    #   prompt: "Do you want to enable docker test repo(optional) [yes/no]:"
+    #   private: no
+
+- name: Set Hostnames and Update /etc/hosts
+  hosts: all
+  tasks:
+    - name: Include external variables
+      include_vars: ../variable/vars.yml
+
+    - name: Set Hostname
+      hostname:
+        name: "{{ inventory_hostname }}"
+
+    - name: Update /etc/hosts file
+      lineinfile:
+        path: /etc/hosts
+        state: present
+        line: "{{ item.ip }} {{ item.name }}"
+      loop:
+        - { name: '{{ node_name1 }}', ip: '{{ master_ip }}' }
+        - { name: '{{ node_name2 }}', ip: '{{ worker1_ip }}' }
+        - { name: '{{ node_name3 }}', ip: '{{ worker2_ip }}' }
+
+- name: Stop and Disable Firewall (ufw)
+  hosts: all
+  tasks:
+    - name: Disable ufw Firewall
+      systemd:
+        name: ufw
+        state: stopped
+        enabled: false
+
+- name: Install Required Packages
+  hosts: all
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install Required Tools
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
