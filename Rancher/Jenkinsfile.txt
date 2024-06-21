@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Git Checkout') {
+            steps {
+                echo 'Pulling ... '
+                git branch: 'main',
+                url: 'https://github.com/amen123456/Ansible-K8s.git'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'amen'
+            }
+        }
+
+        stage('Install Rancher') {
+            steps {
+                ansiblePlaybook(
+                    credentialsId: 'roottt',
+                    disableHostKeyChecking: true,
+                    installation: 'Ansible',
+                    inventory: '/home/amen/Ansible-K8s/Kubernetes/inventory.txt',
+                    playbook: '/home/amen/Ansible-K8s/Kubernetes/Install_Rancher.yml',
+                    vaultTmpPath: ''
+                )
+            }
+        }
+    }
+}
