@@ -1,0 +1,32 @@
+---
+- name: Install Wazuh using the installation script
+  hosts: k8s-master
+  become: yes
+  vars:
+    overwrite_installation: true
+
+  tasks:
+    - name: Download and execute the Wazuh installation script
+      shell: |
+        curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh
+        sudo bash ./wazuh-install.sh -a {{ '-o' if overwrite_installation else '' }}
+      args:
+        chdir: /root
+      register: wazuh_install
+
+    - name: Display installation results
+      debug:
+        msg: "{{ wazuh_install.stdout_lines }}"
+
+    - name: Extract passwords file from the installation archive
+      shell: sudo tar -O -xvf /root/wazuh-install-files.tar wazuh-install-files/wazuh-passwords.txt
+      register: wazuh_passwords
+      ignore_errors: true
+
+    - name: Display Wazuh passwords
+      debug:
+        msg: "{{ wazuh_passwords.stdout_lines }}"
+      when: wazuh_passwords.rc == 0
+
+  handlers:
+    # Handlers if needed
