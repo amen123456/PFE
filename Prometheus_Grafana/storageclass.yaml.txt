@@ -1,0 +1,8 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: vsphere-storage
+provisioner: csi.vsphere.vmware.com
+parameters:
+  diskformat: thin
+  datastore: ds002-lab-stw3-data1-dtx1
