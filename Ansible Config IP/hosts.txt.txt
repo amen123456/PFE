@@ -1,4 +1,0 @@
-[vms]
-k8s-master ansible_host=10.2.1.7 host_ip=10.2.1.6 netmask=255.255.255.0 gateway=10.2.1.254
-worker1-virtual-machine ansible_host=10.2.1.36 host_ip=10.2.1.9 netmask=255.255.255.0 gateway=10.2.1.254
-worker2-virtual-machine ansible_host=10.2.1.10 host_ip=10.2.1.8 netmask=255.255.255.0 gateway=10.2.1.254
