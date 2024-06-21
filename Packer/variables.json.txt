@@ -1,5 +1,5 @@
 {
-  "vm-name": "Ubuntu-2004-Template",
+  "vm-name": "Ubuntu-2004-Templatee",
   "vcenter-server": "vc-vstack-017-lab.virtualstack.tn",
   "vcenter-username": "abk",
   "vcenter-password": "x2-4Aj8KkTu%2+",
