@@ -37,7 +37,6 @@ pipeline {
 
     post {
         always {
-            // Cleanup actions or notifications can be added here
             cleanWs()
         }
         success {
