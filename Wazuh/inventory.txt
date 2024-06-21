@@ -1,0 +1,5 @@
+[master]
+k8s-matser ansible_host=10.2.1.6
+[worker]
+k8s-node1 ansible_host=10.2.1.9
+k8s-node2 ansible_host=10.2.1.8
