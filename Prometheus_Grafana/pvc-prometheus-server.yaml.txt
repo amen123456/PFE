@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prometheus-server
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi # Modifiez la taille selon vos besoins
+  volumeName: pv-prometheus-server  # Spécifiez le nom du nouveau PersistentVolume ici
+  # Ajoutez d'autres spécifications nécessaires, comme la classe de stockage, si nécessaire
