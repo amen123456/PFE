@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Pulling ... '
                 git branch: 'main',
-                    url: 'https://github.com/amen123456/Ansible-K8s.git'
+                    url: 'https://github.com/amen123456/PFE.git'
             }
         }
         stage('Test') {
