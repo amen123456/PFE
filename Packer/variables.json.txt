@@ -1,0 +1,18 @@
+{
+  "vm-name": "Ubuntu-2004-Template",
+  "vcenter-server": "vc-vstack-017-lab.virtualstack.tn",
+  "vcenter-username": "abk",
+  "vcenter-password": "x2-4Aj8KkTu%2+",
+  "datacenter": "DTX1",
+  "datastore": "ds002-lab-stw3-data1-dtx1",
+  "folder": "./Amen allah Ben Khalifa/Templates",
+  "template": "./Amen allah Ben Khalifa/VM-Master", 
+  "cluster": "Clu001-UCS02-PRD",
+  "network": "VLAN_LAB",
+  "Ressource_Pool": "/",
+  "ssh-username": "amen",
+  "ssh-password": "amen",
+  "iso_checksum_type": "sha256",
+  "linked_clone": "true"
+  
+}
