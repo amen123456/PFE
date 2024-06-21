@@ -1,0 +1,83 @@
+---
+- name: Started Docker Installation on Ubuntu
+  hosts: all
+  become: yes
+  vars_prompt:
+    - name: nightly
+      prompt: "Do you want to enable docker nightly repo (optional) [yes/no]"
+      private: no
+    - name: test
+      prompt: "Do you want to enable docker test repo (optional) [yes/no]"
+      private: no
+  tasks:
+    - name: Remove old versions of Docker
+      apt:
+        name: "{{ item }}"
+        state: absent
+        purge: true
+      loop:
+        - docker
+        - docker-engine
+        - docker.io
+        - containerd
+        - runc
+
+    - name: Install required packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+
+    - name: Add Docker's official GPG key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository for Ubuntu
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
+        state: present
+        update_cache: yes
+
+    - name: Optionally add the nightly Docker repo
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} nightly"
+        state: present
+        update_cache: yes
+      when: nightly == "yes"
+
+    - name: Optionally add the test Docker repo
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} test"
+        state: present
+        update_cache: yes
+      when: test == "yes"
+
+    - name: Install Docker CE, CLI, and Containerd
+      apt:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: Ensure Docker services are enabled and running
+      ansible.builtin.systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Display Docker version
+      command: docker --version
+      register: docker_version
+    - debug:
+        var: docker_version.stdout
