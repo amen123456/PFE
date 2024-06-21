@@ -22,7 +22,7 @@ pipeline {
                     credentialsId: 'ssh-key', 
                     disableHostKeyChecking: true,
                     installation: 'Ansible',
-                    inventory: '/home/amen/PFE/Wazuh/inventory.txt',
+                    inventory: '/home/amen/PFE/Kubernetes/inventory.txt',
                     playbook: '/home/amen/PFE/Wazuh/Install_wazuh.yml',
                     extraVars: [ 
                         'ansible_user': 'root'
