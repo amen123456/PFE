@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  volumeName: vault-data-vault-0  
+  volumeName: pv-vault
