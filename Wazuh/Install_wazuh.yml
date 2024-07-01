@@ -1,6 +1,6 @@
 ---
 - name: Install Wazuh using the installation script
-  hosts: k8s-master
+  hosts: DevOps-virtual-machine
   become: yes
   vars:
     overwrite_installation: true
